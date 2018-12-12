@@ -3,32 +3,20 @@ import React, { Component } from 'react';
 // Importando os components necessários da lib react-materialize
 import { Row, Col, Card, Input, Button, RaisedButton } from 'react-materialize';
 // Importando o component CepResponse
-// import CepInput from '../cep/cepinput'
-// Importando o component CepResponse
 import CepResponse from '../cep/cepresponse'
+// import SimpleMap2 from './googlemap2';
+import GoogleMapReact, { Marker} from 'google-map-react';
+ 
+// const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({  img_src }) => <div><img src={img_src} height="50" style={{}} /></div>;
 
 
-// function getCep(cepvalue) {
-//   console.log(cepvalue)
-//     return fetch('https://viacep.com.br/ws/37502028/json/?callback=myfn')
-//     // .then((response) => {
-//     //     console.log("TESTE!!!!!!!!!!!!!! ");
-//     //     response.json();
-//     // })
-//     .then((responseJson) => {
-//         console.log("TESTE!!!!!!!!!!!!!! " + cepvalue);
-//       return responseJson.cep;
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-//  }
 
 class CepApp extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputVal: "37502028", data: []}
+    this.state = {inputVal: "02050010", data: [], lat:0, lng:0, center:{lat:0, lng:0}, zoom:18, markers:[]}
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -43,49 +31,35 @@ class CepApp extends Component {
 			.then(response => response.json())
 			.then(data => {
         this.setState({data: data })
-        // console.log(data.cep + data.logradouro);
 		})
-			.catch(err => console.error(this.props.url, err.toString()))
-	}
-	
+      .catch(err => console.error(this.props.url, err.toString()))
+    
+    // GET latitude and Longitude info
+    var keyGmap = 'AIzaSyAQqPxeKMk8T6I4JOE7P315cSXb13fNbFM';
+    var url = 'https://maps.googleapis.com/maps/api/geocode/json?address='+cepvalue+'&key='+keyGmap;
+		fetch(url)
+			.then(response => response.json())
+			.then(data => {
+        this.setState({lat: data.results[0].geometry.location.lat , lng: data.results[0].geometry.location.lng});
+        var centerPosition = {};
+        centerPosition.lat = data.results[0].geometry.location.lat;
+        centerPosition.lng = data.results[0].geometry.location.lng;
+        console.log(centerPosition);
+        this.setState({center: centerPosition});
+        this.setState({
+          markers: [{lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng, img_src: 'marker2.png'}],
+        });
+        console.log(data.results[0].geometry.location.lat);
+        console.log(data.results[0].geometry.location.lng);
+		})
+      .catch(err => console.error(this.props.url, err.toString()))
+
+  }
+  
 	onSubmit(cepvalue, event) {
 		this.loadData(cepvalue, event)
-	}
-  // onSubmit(cepvalue, event) {
-  //   console.log("PESQUISANDO CEP " + cepvalue + "...");
-  //   var url = 'https://viacep.com.br/ws/'+cepvalue+'/json';
-  //   return fetch(url)
-  //  .then((response) => JSON.stringify(response) )
-  //  .then((responseJson) => {
-  //   //  return responseJson.movies;
-  //   // this.setState({data: data })
-  //    console.log(JSON.parse(responseJson));
-  //  })
-  //  .catch((error) => {
-  //    console.error(error);
-  //  });
-  // }
-
-  // onSubmit(cepvalue, event) {
-  //   async function getCep() {
-  //   try {
-  //     console.log("PESQUISANDO CEP " + cepvalue + "...");
-  //     var url = 'https://viacep.com.br/ws/'+cepvalue+'/json';
-  //     let response = await fetch(url);
-  //     let responseJson = await response.json();
-  //     // this.state.cep = responseJson.cep;
-  //     console.log(responseJson.cep);
-  //     return responseJson;
-  //   } catch(error) {
-  //     console.error(error);
-  //   }
-  // }
-  // var json = getCep();
-  // console.log(json);
-  // // this.setState({data: json })
-  // }
-
-
+  }
+  
   render() {
     return (
       <div>
@@ -97,6 +71,7 @@ class CepApp extends Component {
           {/* {JSON.stringify(this.state)} */}
         </Card>
 
+        <Card>
         <CepResponse    
                 logradouro={this.state.data.logradouro}
                 bairro={this.state.data.bairro}
@@ -104,48 +79,32 @@ class CepApp extends Component {
                 uf = {this.state.data.uf}
                 cep = {this.state.data.cep}
         />
+
+        <div style={{ height: '50vh', width: '100%' }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: 'AIzaSyAQqPxeKMk8T6I4JOE7P315cSXb13fNbFM' }}
+          center={this.state.center}
+          defaultZoom={this.state.zoom}
+        >
+        {this.state.markers.map((marker) =>{
+              return(
+                <AnyReactComponent
+                  lat={this.state.center.lat}
+                  lng={this.state.center.lng}
+                  img_src={marker.img_src}
+                />
+
+              )
+            })}
+        </GoogleMapReact>
+      </div>
+
+        </Card>
         
       </div>
     );
   }
 
 }
-
-// const CepHome = (props) => (
-  
-//   <Row>
-//     <Col m={8} s={12}>
-//         <h5 className="subtitle">Consultar</h5>
-        
-//         {/* <CepInput /> */}
-//         <Card>
-//         <Row>
-//             {/* <form name="myform"> */}
-//             {/* <Input placeholder="Digite o CEP" label="CEP" s={12} value={this.state.cep} name="cepvalue" type="text"/> */}
-//             <Input s={6} type="text" value={this.state.inputVal} onChange={e => this.onChange("inputVal", e)} />
-//             <Col s={12} m={12}>
-//             {/* <Button waves='light' 
-//                     className="right grey darken-2" 
-//                     //onClick={this.getCep(cepvalue)}
-//                     // onClick={(e) => getCep(cepvalue, e)}
-//                     type="submit"
-//                     form="myform"
-//                     >Buscar</Button> */}
-
-//             {/* <input type="button" onClick={this.onSubmit} value="Submit" /> */}
-//             </Col>
-//             {/* </form> */}
-//         </Row>
-//         </Card>
-//         {JSON.stringify(this.state)}
-
-//         <CepResponse    rua="Rua Teste"
-//                 bairro="São Vicente"
-//                 cidade="Itajubá"
-//         />
-
-//     </Col>
-//   </Row>
-// );
 
 export default CepApp;

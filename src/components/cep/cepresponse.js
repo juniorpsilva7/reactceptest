@@ -9,9 +9,9 @@ const CepResponse = (props) => (
       <Row>
       <Col s={8} s={12}>
                 <h5><p><b>{props.logradouro}</b></p></h5>
-                <p><b>{props.bairro}</b></p>
-                <p><b>{props.cidade} {props.uf}</b></p>
-                <p><b>{props.cep}</b></p>   
+                <p>{props.bairro}</p>
+                <p>{props.cidade} {props.uf}</p>
+                <p>{props.cep}</p>   
       </Col>
       </Row>
   </Card>
