@@ -4,13 +4,11 @@ import React, { Component } from 'react';
 import { Row, Col, Card, Input, Button, RaisedButton } from 'react-materialize';
 // Importando o component CepResponse
 import CepResponse from '../cep/cepresponse'
-// import SimpleMap2 from './googlemap2';
+// Import do Google Map React
 import GoogleMapReact, { Marker} from 'google-map-react';
  
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
 const AnyReactComponent = ({  img_src }) => <div><img src={img_src} height="50" style={{}} /></div>;
-
-
 
 class CepApp extends Component {
 
@@ -47,10 +45,10 @@ class CepApp extends Component {
         console.log(centerPosition);
         this.setState({center: centerPosition});
         this.setState({
-          markers: [{lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng, img_src: 'marker2.png'}],
+          markers: [{lat: centerPosition.lat.lat, lng: centerPosition.lng, img_src: 'marker2.png'}],
         });
-        console.log(data.results[0].geometry.location.lat);
-        console.log(data.results[0].geometry.location.lng);
+        // console.log(data.results[0].geometry.location.lat);
+        // console.log(data.results[0].geometry.location.lng);
 		})
       .catch(err => console.error(this.props.url, err.toString()))
 
@@ -99,7 +97,7 @@ class CepApp extends Component {
         </GoogleMapReact>
       </div>
 
-        </Card>
+      </Card>
         
       </div>
     );

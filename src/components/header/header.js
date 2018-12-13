@@ -9,9 +9,9 @@ import { NavLink } from 'react-router-dom'
 const Header = () => (
   <Row>  
     <Navbar className="grey darken-2">
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="contact">Contact</NavLink></li>
-      <li><NavLink to="cep">Cep App</NavLink></li>
+      <li><NavLink to="/">Busca CEP</NavLink></li>
+      <li><NavLink to="home">Sobre Mim</NavLink></li>
+      <li><NavLink to="contact">Contato</NavLink></li>
     </Navbar>
   </Row>
 );
