@@ -14,7 +14,7 @@ class CepApp extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputVal: "02050010", data: [], lat:0, lng:0, center:{lat:0, lng:0}, zoom:18, markers:[]}
+    this.state = {inputVal: "02050010", data: [], lat:0, lng:0, center:{lat:0, lng:0}, zoom:18, markers:[], alert:""}
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -47,10 +47,14 @@ class CepApp extends Component {
         this.setState({
           markers: [{lat: centerPosition.lat.lat, lng: centerPosition.lng, img_src: 'marker2.png'}],
         });
+        this.setState({alert: ""});
         // console.log(data.results[0].geometry.location.lat);
         // console.log(data.results[0].geometry.location.lng);
 		})
-      .catch(err => console.error(this.props.url, err.toString()))
+      .catch(err => {
+        console.error(this.props.url, err.toString());
+        this.setState({alert: "CEP Errado"});
+      });
 
   }
   
@@ -63,9 +67,10 @@ class CepApp extends Component {
       <div>
         <Card>
           <Row>
-            <Input s={6} type="text" value={this.state.inputVal} onChange={e => this.onChange("inputVal", e)} />
+            <Input s={6} type="number" value={this.state.inputVal} onChange={e => this.onChange("inputVal", e)} />
             <Button waves='light' className="right grey darken-2" onClick={e => this.onSubmit(this.state.inputVal, e)}>Buscar</Button>
           </Row>
+          <span className="red-text">{this.state.alert}</span>
           {/* {JSON.stringify(this.state)} */}
         </Card>
 
