@@ -33,7 +33,7 @@ class CepApp extends Component {
       .catch(err => console.error(this.props.url, err.toString()))
     
     // GET latitude and Longitude info
-    var keyGmap = 'AIzaSyAQqPxeKMk8T6I4JOE7P315cSXb13fNbFM';
+    var keyGmap = '<<GMAP_KEY>>';
     var url = 'https://maps.googleapis.com/maps/api/geocode/json?address='+cepvalue+'&key='+keyGmap;
 		fetch(url)
 			.then(response => response.json())
