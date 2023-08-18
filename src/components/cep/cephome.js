@@ -30,7 +30,10 @@ class CepApp extends Component {
 			.then(data => {
         this.setState({data: data })
 		})
-      .catch(err => console.error(this.props.url, err.toString()))
+      .catch(err => {
+          console.error(this.props.url, err.toString());
+          this.setState({alert: "CEP Errado"});
+      })
     
     // GET latitude and Longitude info
     var keyGmap = '<<GMAP_KEY>>';
@@ -53,7 +56,7 @@ class CepApp extends Component {
 		})
       .catch(err => {
         console.error(this.props.url, err.toString());
-        this.setState({alert: "CEP Errado"});
+        
       });
 
   }

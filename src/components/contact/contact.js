@@ -23,7 +23,7 @@ const Contact = () => (
               <p><b>Email </b><img src={gmailLogo} height="17" /></p>
               <p>juniorpsilva7@gmail.com</p>
               <p><b>LinkedIn </b><img src={inLogo} height="25" /></p>
-              <a href="https://www.linkedin.com/in/junior-silva-06a8b620/">https://www.linkedin.com/in/junior-silva-06a8b620/</a>
+              <a href="https://www.linkedin.com/in/juniorpsilva/">https://www.linkedin.com/in/juniorpsilva/</a>
           </Row>
         </Card>
     </Col>
