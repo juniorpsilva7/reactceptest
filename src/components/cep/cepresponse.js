@@ -7,7 +7,7 @@ import { Row, Col, Card } from 'react-materialize';
 const CepResponse = (props) => (
   <Card>
       <Row>
-      <Col s={8} s={12}>
+      <Col s={12}>
                 <h5><p><b>{props.logradouro}</b></p></h5>
                 <p>{props.bairro}</p>
                 <p>{props.cidade} {props.uf}</p>

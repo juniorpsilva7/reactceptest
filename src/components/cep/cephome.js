@@ -88,7 +88,7 @@ class CepApp extends Component {
 
         <div style={{ height: '50vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyAQqPxeKMk8T6I4JOE7P315cSXb13fNbFM' }}
+          bootstrapURLKeys={{ key: '<<GMAP_KEY>>' }}
           center={this.state.center}
           defaultZoom={this.state.zoom}
         >
