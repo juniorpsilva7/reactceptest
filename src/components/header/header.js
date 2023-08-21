@@ -10,7 +10,7 @@ const Header = () => (
   <Row>  
     <Navbar className="amber">
     <li><NavLink to="/" className="black-text">Busca CEP</NavLink></li>
-      <li><NavLink to="home" className="black-text">Sobre Mim</NavLink></li>
+      <li><NavLink to="about" className="black-text">Sobre Mim</NavLink></li>
       <li><NavLink to="contact" className="black-text">Contato</NavLink></li>
     </Navbar>
   </Row>

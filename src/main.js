@@ -1,7 +1,7 @@
 // Importantando o React
 import React from "react";
 // Importantando o component Home
-import Home from "./components/home/home";
+import About from "./components/about/about";
 // Importantando o component Contact
 import Contact from "./components/contact/contact";
 // Importando os components necessárias da lib react-materialize
@@ -16,7 +16,7 @@ const Main = () => (
     <Container>
       <Switch>
         <Route exact path='/' component={CepHome}/>
-        <Route path='/home' component={Home}/>
+        <Route path='/about' component={About}/>
         <Route path='/contact' component={Contact}/>
       </Switch>
     </Container>

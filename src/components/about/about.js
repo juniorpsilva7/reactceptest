@@ -14,7 +14,7 @@ import company_avatar4 from '../../images/microboard.jpg';
 
 
 
-const Home = () => (
+const About = () => (
   <Row>
     <Col m={3} s={12}>
       <UserProfile />
@@ -72,4 +72,4 @@ const Home = () => (
   </Row>
 );
 
-export default Home;
+export default About;
